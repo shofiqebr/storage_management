@@ -10,3 +10,10 @@ export const fileCreateValidation = z.object({
     size: z.number().min(0),
   }),
 });
+
+
+export const fileRenameValidation = z.object({
+  body: z.object({
+    name: z.string({ required_error: 'New file name is required' }),
+  }),
+});

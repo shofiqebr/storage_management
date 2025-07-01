@@ -50,3 +50,30 @@ export const deleteFileController = catchAsync(async (req: Request, res: Respons
     data: null,
   });
 });
+
+export const renameFileController = catchAsync(async (req: Request, res: Response) => {
+  const userId = (req as any).user.id;
+  const fileId = req.params.id;
+  const { name } = req.body;
+
+  const file = await FileService.renameFile(fileId, userId, name);
+
+  sendResponse<IFile>(res, {
+    statusCode: 200,
+    message: 'File renamed successfully',
+    data: file,
+  });
+});
+
+export const copyFileController = catchAsync(async (req: Request, res: Response) => {
+  const userId = (req as any).user.id;
+  const fileId = req.params.id;
+
+  const copiedFile = await FileService.copyFile(fileId, userId);
+
+  sendResponse<IFile>(res, {
+    statusCode: 201,
+    message: 'File copied successfully',
+    data: copiedFile,
+  });
+});
