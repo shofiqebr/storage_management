@@ -1,0 +1,54 @@
+Login email and pass
+Register full name email pass and confirm pass
+Forgot pass with email verification
+Google signup
+15 gb storage usages storage available storage
+Create folder total item storage
+Keep note  total item storage
+Keep image total item storage
+Keep pdf total item storage
+Any file favourite copy rename duplicate delete if possible share
+Click to a file redirect to a page
+Summeri api
+Recent file api
+Private route while clicking to lock password system
+Favourite api
+Calendar wise filter all data show on that date
+
+
+
+Step	Module	Description
+1️⃣	Storage Module	Track per-user storage (15GB limit), storageUsed field in User already done
+2️⃣	Folder Module	Create/manage folders with item count & storage tracking
+3️⃣	File Module	Store files (notes, images, PDFs, etc.), favourite, copy, rename, delete, share
+4️⃣	Note Module	Keep text notes, counts towards storage
+5️⃣	Image Module	Upload images, counts towards storage
+6️⃣	PDF Module	Upload PDFs, counts towards storage
+7️⃣	Favourite API	Mark/unmark any file as favourite, fetch favourites
+8️⃣	Summary API	Quick file summaries if needed (for example, latest uploads summary)
+9️⃣	Recent Files API	Recent activity, latest uploads, etc.
+🔟	Private Lock API	Password lock for files, protected by extra password verification
+1️⃣1️⃣	Calendar Filter API	Show files/notes created on specific dates using calendar filter
+1️⃣2️⃣	Google Login	Google OAuth2 signup & login flow
+
+
+
+storage logic within User or separate utils (already partially there)
+
+folder module (folder create, list, delete)
+
+file module (generic files, counts towards storage)
+
+note, image, pdf modules inherit file logic or are specific types
+
+Favourites inside file
+
+Sharing & Copy features inside file
+
+recent & summary APIs part of file routes
+
+private lock as extra password check in file routes
+
+Calendar filter at query level in file APIs
+
+Google OAuth flow as auth addition
