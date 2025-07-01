@@ -1,8 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import cookieParser from "cookie-parser";
-import userRouter from './module/user/user.router';
-import authRouter from './module/auth/auth.router';
+import { UserRoutes } from './module/user/user.router';
 
 const app: Application = express();
 
@@ -27,8 +26,7 @@ app.use(cors({
 }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api",authRouter);
-app.use("/api",userRouter);
+app.use("/api",UserRoutes);
 
 
 
