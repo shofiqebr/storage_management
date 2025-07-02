@@ -38,3 +38,17 @@ export const deleteFolderController = catchAsync(async (req: Request, res: Respo
     data: null,
   });
 });
+
+export const copyFolderController = catchAsync(async (req: Request, res: Response) => {
+  const userId = (req as any).user.id;
+  const folderId = req.params.id;
+
+  const copiedFolder = await FolderService.copyFolder(folderId, userId);
+
+  sendResponse<IFolder>(res, {
+    statusCode: 201,
+    message: 'Folder copied successfully',
+    data: copiedFolder,
+  });
+});
+

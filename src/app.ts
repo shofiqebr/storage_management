@@ -27,7 +27,7 @@ app.use(cors({
 }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api",UserRoutes);
+app.use("/api/user",UserRoutes);
 app.use("/api",FolderRoutes);
 
 

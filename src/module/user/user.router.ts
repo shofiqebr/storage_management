@@ -10,17 +10,18 @@ import {
 import validateRequest from '../../middlewares/validateRequest';
 import auth from '../../middlewares/auth';
 
-
 const router = Router();
 
-router.post('/user/register', validateRequest(userRegisterValidation), UserController.registerUserController);
-router.post('/user/login', validateRequest(userLoginValidation), UserController.loginUserController);
-router.post('/user/forgot-password', validateRequest(userForgotPassValidation), UserController.forgotPasswordController);
-router.patch('/user/change-password', auth, validateRequest(userChangePassValidation), UserController.changePasswordController);
 
-router.get('/user/all', auth, UserController.getAllUsersController);
-router.get('/user/:id', auth, UserController.getSingleUserController);
-router.patch('/user/:id', auth, validateRequest(userUpdateValidation), UserController.updateUserController);
-router.delete('/user/:id', auth, UserController.deleteUserController);
+router.post('/register', validateRequest(userRegisterValidation), UserController.registerUserController);
+router.post('/login', validateRequest(userLoginValidation), UserController.loginUserController);
+router.post('/forgot-password', validateRequest(userForgotPassValidation), UserController.forgotPasswordController);
+router.patch('/change-password', auth, validateRequest(userChangePassValidation), UserController.changePasswordController);
+
+
+router.get('/all', auth, UserController.getAllUsersController);
+router.get('/:id', auth, UserController.getSingleUserController);
+router.patch('/:id', auth, validateRequest(userUpdateValidation), UserController.updateUserController);
+router.delete('/:id', auth, UserController.deleteUserController);
 
 export const UserRoutes = router;
