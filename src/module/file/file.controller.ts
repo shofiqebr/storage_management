@@ -136,4 +136,14 @@ export const getFileController = catchAsync(async (req, res) => {
   sendResponse(res, { statusCode: 200, message: 'File retrieved', data: file });
 });
 
+export const fileSummaryController = catchAsync(async (req: Request, res: Response) => {
+  const userId = (req as any).user.id;
 
+  const summary = await FileService.getUserFileSummary(userId);
+
+  sendResponse(res, {
+    statusCode: 200,
+    message: 'File summary retrieved successfully',
+    data: summary,
+  });
+});

@@ -18,4 +18,8 @@ router.delete('/:id', auth_1.default, file_controller_1.deleteFileController);
 router.patch('/rename/:id', auth_1.default, (0, validateRequest_1.default)(file_validation_1.fileRenameValidation), file_controller_1.renameFileController);
 router.post('/copy/:id', auth_1.default, file_controller_1.copyFileController);
 router.get('/recent', auth_1.default, file_controller_1.recentFilesController);
+router.patch('/lock/:id', auth_1.default, (0, validateRequest_1.default)(file_validation_1.lockFileValidation), file_controller_1.lockFileController);
+router.patch('/unlock/:id', auth_1.default, (0, validateRequest_1.default)(file_validation_1.lockFileValidation), file_controller_1.unlockFileController);
+router.post('/view/:id', auth_1.default, file_controller_1.getFileController);
+router.get('/summary', auth_1.default, file_controller_1.fileSummaryController);
 exports.FileRoutes = router;

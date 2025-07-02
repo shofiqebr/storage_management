@@ -17,6 +17,8 @@ const fileSchema = new Schema<IFile>(
     isFavourite: { type: Boolean, default: false },
     isLocked: { type: Boolean, default: false },
     lockPassword: { type: String, default: null },
+   
+
   },
   { timestamps: true },
 );

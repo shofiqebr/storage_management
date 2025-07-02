@@ -2,6 +2,7 @@ import { FileModel } from './file.model';
 import { IFile } from './file.interface';
 import { UserModel } from '../user/user.model';
 import bcrypt from 'bcrypt';
+import { FolderModel } from '../folder/folder.model';
 
 const MAX_STORAGE = 15 * 1024 * 1024 * 1024; // 15GB
 
@@ -146,6 +147,34 @@ export const FileService = {
 
     return file;
   },
+  
+ getUserFileSummary : async (userId: string) => {
+  const files = await FileModel.find({ user: userId });
+  const folders = await FolderModel.find({ user: userId });
+
+  const totalFiles = files.length;
+  const totalStorage = files.reduce((acc, file) => acc + (file.size || 0), 0);
+  const favourites = files.filter(f => f.isFavourite).length;
+  const notes = files.filter(f => f.type === 'note').length;
+  const images = files.filter(f => f.type === 'image').length;
+  const pdfs = files.filter(f => f.type === 'pdf').length;
+
+  const totalFolders = folders.length;
+  const folderStorage = folders.reduce((acc, folder) => acc + (folder.storageUsed || 0), 0);
+
+  const grandTotalStorage = totalStorage + folderStorage;
+
+  return {
+    totalFiles,
+    totalFolders,
+    totalStorage: grandTotalStorage,
+    availableStorage: MAX_STORAGE - grandTotalStorage,
+    favourites,
+    notes,
+    images,
+    pdfs,
+  };
+}
 
 
   

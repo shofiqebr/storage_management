@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fileRenameValidation = exports.fileCreateValidation = void 0;
+exports.lockFileValidation = exports.fileRenameValidation = exports.fileCreateValidation = void 0;
 const zod_1 = require("zod");
 exports.fileCreateValidation = zod_1.z.object({
     body: zod_1.z.object({
@@ -15,5 +15,10 @@ exports.fileCreateValidation = zod_1.z.object({
 exports.fileRenameValidation = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z.string({ required_error: 'New file name is required' }),
+    }),
+});
+exports.lockFileValidation = zod_1.z.object({
+    body: zod_1.z.object({
+        password: zod_1.z.string().min(4, 'Password required'),
     }),
 });

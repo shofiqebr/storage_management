@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.recentFilesController = exports.calendarFilterController = exports.copyFileController = exports.renameFileController = exports.deleteFileController = exports.toggleFavouriteController = exports.getMyFilesController = exports.createFileController = void 0;
+exports.fileSummaryController = exports.getFileController = exports.unlockFileController = exports.lockFileController = exports.recentFilesController = exports.calendarFilterController = exports.copyFileController = exports.renameFileController = exports.deleteFileController = exports.toggleFavouriteController = exports.getMyFilesController = exports.createFileController = void 0;
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const file_service_1 = require("./file.service");
@@ -96,5 +96,35 @@ exports.recentFilesController = (0, catchAsync_1.default)((req, res) => __awaite
         statusCode: 200,
         message: 'Recent files retrieved successfully',
         data: files,
+    });
+}));
+exports.lockFileController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.user.id;
+    const fileId = req.params.id;
+    const { password } = req.body;
+    const file = yield file_service_1.FileService.lockFile(fileId, userId, password);
+    (0, sendResponse_1.default)(res, { statusCode: 200, message: 'File locked', data: file });
+}));
+exports.unlockFileController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.user.id;
+    const fileId = req.params.id;
+    const { password } = req.body;
+    const file = yield file_service_1.FileService.unlockFile(fileId, userId, password);
+    (0, sendResponse_1.default)(res, { statusCode: 200, message: 'File unlocked', data: file });
+}));
+exports.getFileController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.user.id;
+    const fileId = req.params.id;
+    const { password } = req.body;
+    const file = yield file_service_1.FileService.getFileById(fileId, userId, password);
+    (0, sendResponse_1.default)(res, { statusCode: 200, message: 'File retrieved', data: file });
+}));
+exports.fileSummaryController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.user.id;
+    const summary = yield file_service_1.FileService.getUserFileSummary(userId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        message: 'File summary retrieved successfully',
+        data: summary,
     });
 }));

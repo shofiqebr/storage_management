@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createFileController, getMyFilesController, toggleFavouriteController, deleteFileController, renameFileController, copyFileController, calendarFilterController, recentFilesController, lockFileController, unlockFileController, getFileController } from './file.controller';
+import { createFileController, getMyFilesController, toggleFavouriteController, deleteFileController, renameFileController, copyFileController, calendarFilterController, recentFilesController, lockFileController, unlockFileController, getFileController, fileSummaryController } from './file.controller';
 import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
 import { fileCreateValidation, fileRenameValidation, lockFileValidation } from './file.validation';
@@ -17,6 +17,7 @@ router.get('/recent', auth, recentFilesController);
 router.patch('/lock/:id', auth, validateRequest(lockFileValidation), lockFileController);
 router.patch('/unlock/:id', auth, validateRequest(lockFileValidation), unlockFileController);
 router.post('/view/:id', auth, getFileController);
+router.get('/summary', auth, fileSummaryController);
 
 
 
