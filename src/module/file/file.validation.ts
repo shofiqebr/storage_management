@@ -17,3 +17,9 @@ export const fileRenameValidation = z.object({
     name: z.string({ required_error: 'New file name is required' }),
   }),
 });
+
+export const lockFileValidation = z.object({
+  body: z.object({
+    password: z.string().min(4, 'Password required'),
+  }),
+});

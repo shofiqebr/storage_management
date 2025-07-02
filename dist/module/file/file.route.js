@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileRoutes = void 0;
+const express_1 = require("express");
+const file_controller_1 = require("./file.controller");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const file_validation_1 = require("./file.validation");
+const router = (0, express_1.Router)();
+router.post('/', auth_1.default, (0, validateRequest_1.default)(file_validation_1.fileCreateValidation), file_controller_1.createFileController);
+router.get('/', auth_1.default, file_controller_1.getMyFilesController);
+router.get('/calendar-filter', auth_1.default, file_controller_1.calendarFilterController);
+router.patch('/favourite/:id', auth_1.default, file_controller_1.toggleFavouriteController);
+router.delete('/:id', auth_1.default, file_controller_1.deleteFileController);
+router.patch('/rename/:id', auth_1.default, (0, validateRequest_1.default)(file_validation_1.fileRenameValidation), file_controller_1.renameFileController);
+router.post('/copy/:id', auth_1.default, file_controller_1.copyFileController);
+router.get('/recent', auth_1.default, file_controller_1.recentFilesController);
+exports.FileRoutes = router;

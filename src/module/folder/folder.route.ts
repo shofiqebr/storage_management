@@ -6,9 +6,9 @@ import { folderCreateValidation } from './folder.validation';
 
 const router = Router();
 
-router.post('/folder', auth, validateRequest(folderCreateValidation), createFolderController);
+router.post('/', auth, validateRequest(folderCreateValidation), createFolderController);
 router.post('/copy/:id', auth, copyFolderController);
-router.get('/folder', auth, getMyFoldersController);
-router.delete('/folder/:id', auth, deleteFolderController);
+router.get('/', auth, getMyFoldersController);
+router.delete('/:id', auth, deleteFolderController);
 
 export const FolderRoutes = router;

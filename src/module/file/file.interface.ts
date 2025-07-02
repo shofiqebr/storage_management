@@ -9,4 +9,8 @@ export interface IFile {
   content?: string; // for notes
   url?: string;    // for images, PDFs
   isFavourite: boolean;
+    isLocked?: boolean;
+  lockPassword?: string | null;
+   createdAt?: Date;
+  updatedAt?: Date;
 }

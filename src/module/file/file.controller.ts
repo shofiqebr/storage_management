@@ -77,3 +77,63 @@ export const copyFileController = catchAsync(async (req: Request, res: Response)
     data: copiedFile,
   });
 });
+
+
+export const calendarFilterController = catchAsync(async (req, res) => {
+  const userId = (req as any).user.id;
+  const { date } = req.query;
+
+  if (!date || typeof date !== 'string') {
+    throw new Error('Date query parameter is required (YYYY-MM-DD)');
+  }
+
+  const files = await FileService.filterFilesByDate(userId, date);
+
+  sendResponse(res, {
+    statusCode: 200,
+    message: `Files for ${date} retrieved successfully`,
+    data: files,
+  });
+});
+
+export const recentFilesController = catchAsync(async (req, res) => {
+  const userId = (req as any).user.id;
+  const limit = parseInt(req.query.limit as string) || 10;
+
+  const files = await FileService.getRecentFiles(userId, limit);
+
+  sendResponse(res, {
+    statusCode: 200,
+    message: 'Recent files retrieved successfully',
+    data: files,
+  });
+});
+
+export const lockFileController = catchAsync(async (req, res) => {
+  const userId = (req as any).user.id;
+  const fileId = req.params.id;
+  const { password } = req.body;
+
+  const file = await FileService.lockFile(fileId, userId, password);
+  sendResponse(res, { statusCode: 200, message: 'File locked', data: file });
+});
+
+export const unlockFileController = catchAsync(async (req, res) => {
+  const userId = (req as any).user.id;
+  const fileId = req.params.id;
+  const { password } = req.body;
+
+  const file = await FileService.unlockFile(fileId, userId, password);
+  sendResponse(res, { statusCode: 200, message: 'File unlocked', data: file });
+});
+
+export const getFileController = catchAsync(async (req, res) => {
+  const userId = (req as any).user.id;
+  const fileId = req.params.id;
+  const { password } = req.body;
+
+  const file = await FileService.getFileById(fileId, userId, password);
+  sendResponse(res, { statusCode: 200, message: 'File retrieved', data: file });
+});
+
+

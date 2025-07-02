@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from "cookie-parser";
 import { UserRoutes } from './module/user/user.router';
 import { FolderRoutes } from './module/folder/folder.route';
+import { FileRoutes } from './module/file/file.route';
 
 const app: Application = express();
 
@@ -28,7 +29,8 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user",UserRoutes);
-app.use("/api",FolderRoutes);
+app.use("/api/folder",FolderRoutes);
+app.use("/api/file",FileRoutes);
 
 
 
